@@ -1,14 +1,11 @@
 package ru.zidkov.secondtask
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toolbar
 
 class SecondActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -46,11 +43,6 @@ class SecondActivity : AppCompatActivity() {
                 return true
             }
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-    fun onClick(view: View) {
-        val intent: Intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        return super.onOptionsItemSelected(item)
     }
 }
