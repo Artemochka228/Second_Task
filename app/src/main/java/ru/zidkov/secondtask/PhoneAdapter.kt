@@ -19,8 +19,7 @@ class PhoneAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
-        val inflater: LayoutInflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater: LayoutInflater = LayoutInflater.from(context)
         // inflate - метод, возвращающий объект View, в котором содержится иерархия View из файла разметки R.layout.item
         val view: View = inflater.inflate(R.layout.item, parent, false)
         // view.findViewById(R.id.name) - ищет элемент с id name в рамках view
