@@ -18,26 +18,23 @@ class MainActivity : AppCompatActivity() {
 
         val usersList: ListView = findViewById(R.id.usersList)
 
-        val names = listOf("Кот", "Жак Фреско", "Евгений Понасенков", "Poggers", "Я)")
-
-        val titles = listOf("Кот", "Великий мыслитель", "Классная походка", "Пог", "Дединсайдик")
-
-        val imageSources =
+        val users =
             listOf(
-                R.drawable.kitya,
-                R.drawable.fresko,
-                R.drawable.ponasenkov,
-                R.drawable.poggers,
-                R.drawable.doomer
+                User("Кот", "Кот", R.drawable.kitya),
+                User("Жак Фреско", "Великий мыслитель", R.drawable.fresko),
+                User("Евгений Понасенков", "Классная походка", R.drawable.ponasenkov),
+                User("Poggers", "Пог", R.drawable.poggers),
+                User("Я)", "Дединсайдик", R.drawable.doomer)
             )
 
-        val phoneAdapter = PhoneAdapter(this, names, titles, imageSources)
+        val phoneAdapter = PhoneAdapter(this, users)
 
         usersList.adapter = phoneAdapter
         // Определение обработчика нажатий для элементов ListView
         usersList.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, i, _ ->
-                val intent: Intent = SecondActivity.getIntent(context, names[i], titles[i], imageSources[i])
+                val(name, title, imageSource) = users[i]
+                val intent: Intent = SecondActivity.getIntent(context, name, title, imageSource)
                 startActivity(intent)
             }
 
