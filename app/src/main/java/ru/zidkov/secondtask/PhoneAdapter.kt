@@ -23,13 +23,13 @@ class PhoneAdapter(
         // inflate - метод, возвращающий объект View, в котором содержится иерархия View из файла разметки R.layout.item
         val view: View = inflater.inflate(R.layout.item, parent, false)
         // view.findViewById(R.id.name) - ищет элемент с id name в рамках view
-        val name: TextView = view.findViewById(R.id.name) as TextView
+        val name = view.findViewById<TextView>(R.id.name)
         name.setText(names[position])
         // view.findViewById(R.id.title) - ищет элемент с id title в рамках view
-        val title: TextView = view.findViewById(R.id.title) as TextView
+        val title = view.findViewById<TextView>(R.id.title)
         title.setText(titles[position])
         // view.findViewById(R.id.avatar) - ищет элемент с id avatar в рамках view
-        val image: ImageView = view.findViewById(R.id.avatar) as ImageView
+        val image = view.findViewById<ImageView>(R.id.avatar)
         image.setImageResource(imageSources[position])
 
         return view
