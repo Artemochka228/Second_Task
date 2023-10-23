@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 User("Я)", "Дединсайдик", R.drawable.doomer)
             )
 
-        val phoneAdapter = PhoneAdapter(this, users)
+        val phoneAdapter = UserAdapter(this, users)
 
         usersList.adapter = phoneAdapter
         // Определение обработчика нажатий для элементов ListView

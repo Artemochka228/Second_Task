@@ -1,17 +1,14 @@
 package ru.zidkov.secondtask
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import ru.zidkov.secondtask.MainActivity
 
-class PhoneAdapter(
+class UserAdapter(
     private val context: Context,
     private val users: List<User>,
 ) : ArrayAdapter<User>(context, R.layout.item, users) {
