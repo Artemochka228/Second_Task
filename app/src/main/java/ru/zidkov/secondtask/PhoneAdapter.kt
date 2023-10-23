@@ -10,16 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 
 class PhoneAdapter(
-    private var context: Context,
+    private val context: Context,
     private val names: List<String>,
     private val titles: List<String>,
     private val imageSources: List<Int>
 ) :
     ArrayAdapter<String>(context, R.layout.item, names) {
 
+    // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
+    val inflater: LayoutInflater = LayoutInflater.from(context)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
-        val inflater: LayoutInflater = LayoutInflater.from(context)
         // inflate - метод, возвращающий объект View, в котором содержится иерархия View из файла разметки R.layout.item
         val view: View = inflater.inflate(R.layout.item, parent, false)
         // view.findViewById(R.id.name) - ищет элемент с id name в рамках view
