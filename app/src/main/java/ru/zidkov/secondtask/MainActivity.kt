@@ -3,7 +3,6 @@ package ru.zidkov.secondtask
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -32,16 +31,15 @@ class MainActivity : AppCompatActivity() {
                 R.drawable.doomer
             )
 
-        val phoneAdapter: PhoneAdapter = PhoneAdapter(this, names, titles, imageSources)
+        val phoneAdapter = PhoneAdapter(this, names, titles, imageSources)
 
         usersList.adapter = phoneAdapter
         // Определение обработчика нажатий для элементов ListView
-        usersList.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
+        usersList.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, i, _ ->
                 val intent: Intent = SecondActivity.getIntent(context, names[i], titles[i], imageSources[i])
                 startActivity(intent)
             }
-        }
 
     }
 
