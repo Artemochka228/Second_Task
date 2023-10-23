@@ -39,13 +39,13 @@ class SecondActivity : AppCompatActivity() {
         val imageSource: Int? = arguments?.getInt(ImageSrc)
 
         val toolBar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolBar.setTitle(title)
+        toolBar.title = title
 
         val nameView: TextView = findViewById(R.id.name)
-        nameView.setText(name)
+        nameView.text = name
 
         val titleView: TextView = findViewById(R.id.title)
-        titleView.setText(title)
+        titleView.text = title
 
         val imageView: ImageView = findViewById(R.id.image)
         if (imageSource != null) {
