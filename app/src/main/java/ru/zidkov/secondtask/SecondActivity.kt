@@ -12,6 +12,9 @@ import androidx.annotation.DrawableRes
 
 class SecondActivity : AppCompatActivity() {
     companion object {
+        private const val Name = "name"
+        private const val Title = "title"
+        private const val ImageSrc = "imageSource"
         fun getIntent(
             context: Context,
             name: String,
@@ -19,9 +22,9 @@ class SecondActivity : AppCompatActivity() {
             @DrawableRes imageSource: Int
         ): Intent {
             return Intent(context, SecondActivity::class.java).apply {
-                putExtra("name", name)
-                putExtra("title", title)
-                putExtra("imageSource", imageSource)
+                putExtra(Name, name)
+                putExtra(Title, title)
+                putExtra(ImageSrc, imageSource)
             }
         }
     }
@@ -31,9 +34,9 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_second)
 
         val arguments: Bundle? = intent.extras
-        val name: String? = arguments?.getString("name")
-        val title: String? = arguments?.getString("title")
-        val imageSource: Int? = arguments?.getInt("imageSource")
+        val name: String? = arguments?.getString(Name)
+        val title: String? = arguments?.getString(Title)
+        val imageSource: Int? = arguments?.getInt(ImageSrc)
 
         val toolBar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolBar.setTitle(title)
