@@ -14,8 +14,7 @@ class PhoneAdapter(
     private val names: List<String>,
     private val titles: List<String>,
     private val imageSources: List<Int>
-) :
-    ArrayAdapter<String>(context, R.layout.item, names) {
+) : ArrayAdapter<String>(context, R.layout.item, names) {
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
     val inflater: LayoutInflater = LayoutInflater.from(context)
