@@ -38,10 +38,7 @@ class MainActivity : AppCompatActivity() {
         // Определение обработчика нажатий для элементов ListView
         usersList.onItemClickListener = object : AdapterView.OnItemClickListener {
             override fun onItemClick(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
-                val intent: Intent = Intent(context, SecondActivity::class.java)
-                intent.putExtra("name", names[i])
-                intent.putExtra("title", titles[i])
-                intent.putExtra("imageSource", imageSources[i])
+                val intent: Intent = SecondActivity.getIntent(context, names[i], titles[i], imageSources[i])
                 startActivity(intent)
             }
         }

@@ -1,13 +1,30 @@
 package ru.zidkov.secondtask
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 
 class SecondActivity : AppCompatActivity() {
+    companion object {
+        fun getIntent(
+            context: Context,
+            name: String,
+            title: String,
+            @DrawableRes imageSource: Int
+        ): Intent {
+            return Intent(context, SecondActivity::class.java).apply {
+                putExtra("name", name)
+                putExtra("title", title)
+                putExtra("imageSource", imageSource)
+            }
+        }
+    }
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
