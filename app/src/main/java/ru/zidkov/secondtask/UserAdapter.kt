@@ -7,28 +7,32 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapter(
     private val context: Context,
     private val users: List<User>,
-) : ArrayAdapter<User>(context, R.layout.item, users) {
+) : RecyclerView.Adapter<UserAdapter.ViewHolder>(){
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
     val inflater: LayoutInflater = LayoutInflater.from(context)
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val (Name, Title, ImageSource) = users[position]
-        // inflate - метод, возвращающий объект View, в котором содержится иерархия View из файла разметки R.layout.item
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
         val view: View = inflater.inflate(R.layout.item, parent, false)
-        // view.findViewById(R.id.name) - ищет элемент с id name в рамках view
-        val name = view.findViewById<TextView>(R.id.name)
-        name.text = Name
-        // view.findViewById(R.id.title) - ищет элемент с id title в рамках view
-        val title = view.findViewById<TextView>(R.id.title)
-        title.text = Title
-        // view.findViewById(R.id.avatar) - ищет элемент с id avatar в рамках view
-        val image = view.findViewById<ImageView>(R.id.avatar)
-        image.setImageResource(ImageSource)
+        return ViewHolder(view)
 
-        return view
+    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val user: User = users.get(position)
+        holder.image.setImageResource(user.imageSource)
+        holder.title.setText(user.title)
+        holder.name.setText(user.name)
+    }
+    override fun getItemCount(): Int {
+        return users.size
+    }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val image: ImageView = itemView.findViewById(R.id.image)
+        val title: TextView = itemView.findViewById(R.id.title)
+        val name: TextView = itemView.findViewById(R.id.name)
     }
 }

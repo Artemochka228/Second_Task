@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val context: Context = this
 
-        val usersList: ListView = findViewById(R.id.usersList)
+        val usersList: RecyclerView = findViewById(R.id.usersList)
 
         val users =
             listOf(
@@ -27,16 +28,16 @@ class MainActivity : AppCompatActivity() {
                 User("Я)", "Дединсайдик", R.drawable.doomer)
             )
 
-        val phoneAdapter = UserAdapter(this, users)
+        val userAdapter = UserAdapter(this, users)
 
-        usersList.adapter = phoneAdapter
+        usersList.adapter = userAdapter
         // Определение обработчика нажатий для элементов ListView
-        usersList.onItemClickListener =
+        /*usersList.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, i, _ ->
                 val(name, title, imageSource) = users[i]
                 val intent: Intent = SecondActivity.getIntent(context, name, title, imageSource)
                 startActivity(intent)
-            }
+            }*/
 
     }
 
