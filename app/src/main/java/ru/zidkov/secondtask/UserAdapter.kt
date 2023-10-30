@@ -38,7 +38,6 @@ class UserAdapter(
 
         // обработка нажатия
         holder.itemView.setOnClickListener(View.OnClickListener {
-            Log.i(TAG, "Это моё сообщение для записи в журнале")
             // вызываем метод слушателя передавая ему данные
             onClickListener.onUserClick(user, position)
         })
