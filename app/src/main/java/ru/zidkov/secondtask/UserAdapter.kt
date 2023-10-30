@@ -16,7 +16,7 @@ class UserAdapter(
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     interface OnUserClickListener {
-        fun OnClickListener(user: User, postition: Int)
+        fun onUserClick(user: User, postition: Int)
     }
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
@@ -37,7 +37,7 @@ class UserAdapter(
         holder.itemView.setOnClickListener(View.OnClickListener {
             fun onClick() {
                 // вызываем метод слушателя передавая ему данные
-                onClickListener.OnClickListener(user, position)
+                onClickListener.onUserClick(user, position)
             }
         })
     }

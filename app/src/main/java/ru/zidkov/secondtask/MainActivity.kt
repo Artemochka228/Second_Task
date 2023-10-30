@@ -3,8 +3,6 @@ package ru.zidkov.secondtask
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.AdapterView
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,6 +17,15 @@ class MainActivity : AppCompatActivity() {
 
         val usersList: RecyclerView = findViewById(R.id.usersList)
 
+        // определяем слушатель нажатий для RecyclerView
+        val userClickListener: UserAdapter.OnUserClickListener = object : UserAdapter.OnUserClickListener {
+            override fun onUserClick(user: User, postition: Int) {
+                val(name, title, imageSource) = user
+                val intent: Intent = SecondActivity.getIntent(context, name, title, imageSource)
+                startActivity(intent)
+            }
+        }
+
         val users =
             listOf(
                 User("Кот", "Кот", R.drawable.kitya),
@@ -28,17 +35,9 @@ class MainActivity : AppCompatActivity() {
                 User("Я)", "Дединсайдик", R.drawable.doomer)
             )
 
-        val userAdapter = UserAdapter(this, users)
+        val userAdapter = UserAdapter(this, users, userClickListener)
 
         usersList.adapter = userAdapter
-        // Определение обработчика нажатий для элементов ListView
-        /*usersList.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, i, _ ->
-                val(name, title, imageSource) = users[i]
-                val intent: Intent = SecondActivity.getIntent(context, name, title, imageSource)
-                startActivity(intent)
-            }*/
-
     }
 
 }
