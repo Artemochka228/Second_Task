@@ -3,7 +3,6 @@ package ru.zidkov.secondtask
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
@@ -29,14 +28,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        val users: MutableList<User> =
-            mutableListOf(
-                User("Жак Фреско", "Великий мыслитель", R.drawable.fresko),
-                User("Кот", "Кот", R.drawable.kitya),
-                User("Евгений Понасенков", "Классная походка", R.drawable.ponasenkov),
-                User("Poggers", "Пог", R.drawable.poggers),
-                User("Я)", "Дединсайдик", R.drawable.doomer)
-            )
+        val users: List<User> = Generator.generateItemsData()
 
         val userAdapter = UserAdapter(this, users, userClickListener)
 

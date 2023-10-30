@@ -9,10 +9,11 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class UserAdapter(
     private val context: Context,
-    private val users: MutableList<User>,
+    private val users: List<User>,
     private val onClickListener: OnUserClickListener
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
@@ -32,7 +33,10 @@ class UserAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user: User = users.get(position)
-        holder.image.setImageResource(user.imageSource)
+        Glide
+            .with(context)
+            .load(user.imageSource)
+            .into(holder.image)
         holder.title.setText(user.title)
         holder.name.setText(user.name)
 
