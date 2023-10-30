@@ -1,6 +1,7 @@
 package ru.zidkov.secondtask
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,8 @@ class UserAdapter(
     private val onClickListener: OnUserClickListener
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
+    private val TAG = this.javaClass.simpleName
+
     interface OnUserClickListener {
         fun onUserClick(user: User, postition: Int)
     }
@@ -23,7 +26,7 @@ class UserAdapter(
     val inflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
         val view: View = inflater.inflate(R.layout.item, parent, false)
-        return ViewHolder(view)
+        return UserAdapter.ViewHolder(view)
 
     }
 
@@ -35,10 +38,9 @@ class UserAdapter(
 
         // обработка нажатия
         holder.itemView.setOnClickListener(View.OnClickListener {
-            fun onClick() {
-                // вызываем метод слушателя передавая ему данные
-                onClickListener.onUserClick(user, position)
-            }
+            Log.i(TAG, "Это моё сообщение для записи в журнале")
+            // вызываем метод слушателя передавая ему данные
+            onClickListener.onUserClick(user, position)
         })
     }
 
@@ -47,8 +49,8 @@ class UserAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.image)
         val title: TextView = itemView.findViewById(R.id.title)
+        val image: ImageView = itemView.findViewById(R.id.avatar)
         val name: TextView = itemView.findViewById(R.id.name)
     }
 }
