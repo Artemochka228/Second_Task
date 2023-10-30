@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapter(
     private val context: Context,
-    private val users: List<User>,
+    private val users: MutableList<User>,
     private val onClickListener: OnUserClickListener
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 

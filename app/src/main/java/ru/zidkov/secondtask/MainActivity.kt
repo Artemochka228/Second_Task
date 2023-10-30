@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        val users =
-            listOf(
+        val users: MutableList<User> =
+            mutableListOf(
                 User("Жак Фреско", "Великий мыслитель", R.drawable.fresko),
                 User("Кот", "Кот", R.drawable.kitya),
                 User("Евгений Понасенков", "Классная походка", R.drawable.ponasenkov),
