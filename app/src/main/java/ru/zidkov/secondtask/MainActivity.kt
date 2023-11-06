@@ -18,19 +18,13 @@ class MainActivity : AppCompatActivity() {
 
         val usersList: RecyclerView = findViewById(R.id.usersList)
 
-        // определяем слушатель нажатий для RecyclerView
-        val userClickListener: UserAdapter.OnUserClickListener =
-            object : UserAdapter.OnUserClickListener {
-                override fun onUserClick(user: User, postition: Int) {
-                    val (name, title, imageSource) = user
-                    val intent: Intent = SecondActivity.getIntent(context, name, title, imageSource)
-                    startActivity(intent)
-                }
-            }
-
         val users: List<User> = Generator.generateItemsData()
 
-        val userAdapter = UserAdapter(this, users, userClickListener)
+        val userAdapter = UserAdapter(this, users, fun(user: User, position: Int) {
+            val (name, title, imageSource) = user
+            val intent: Intent = SecondActivity.getIntent(context, name, title, imageSource)
+            startActivity(intent)
+        })
 
         usersList.adapter = userAdapter
     }

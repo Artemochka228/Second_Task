@@ -14,14 +14,11 @@ import com.bumptech.glide.Glide
 class UserAdapter(
     private val context: Context,
     private val users: List<User>,
-    private val onClickListener: OnUserClickListener
+    val clickListen: (User, Int) -> Unit
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     private val TAG = this.javaClass.simpleName
-
-    interface OnUserClickListener {
-        fun onUserClick(user: User, postition: Int)
-    }
+    private val onClickListener = clickListen
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
     val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -43,7 +40,7 @@ class UserAdapter(
         // обработка нажатия
         holder.itemView.setOnClickListener(View.OnClickListener {
             // вызываем метод слушателя передавая ему данные
-            onClickListener.onUserClick(user, position)
+            onClickListener(user, position)
         })
     }
 
