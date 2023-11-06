@@ -30,12 +30,7 @@ class UserAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user: User = usersList.get(position)
-        Glide
-            .with(context)
-            .load(user.imageSource)
-            .into(holder.image)
-        holder.title.setText(user.title)
-        holder.name.setText(user.name)
+        holder.bind(user, context)
 
         // обработка нажатия
         holder.itemView.setOnClickListener(View.OnClickListener {
@@ -44,13 +39,34 @@ class UserAdapter(
         })
     }
 
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.unbind()
+    }
+
     override fun getItemCount(): Int {
         return usersList.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.title)
-        val image: ImageView = itemView.findViewById(R.id.avatar)
-        val name: TextView = itemView.findViewById(R.id.name)
+        private lateinit var title: TextView
+        private lateinit var image: ImageView
+        private lateinit var name: TextView
+
+        fun bind(user: User, context: Context) {
+            title = itemView.findViewById(R.id.title)
+            image = itemView.findViewById(R.id.avatar)
+            name = itemView.findViewById(R.id.name)
+
+            Glide
+                .with(context)
+                .load(user.imageSource)
+                .into(image)
+            title.setText(user.title)
+            name.setText(user.name)
+        }
+
+        fun unbind() {
+            itemView.setOnClickListener(null)
+        }
     }
 }
