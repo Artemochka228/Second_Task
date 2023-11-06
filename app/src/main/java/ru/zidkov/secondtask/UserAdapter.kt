@@ -17,7 +17,6 @@ class UserAdapter(
     val clickListen: (User, Int) -> Unit
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
-    private val TAG = this.javaClass.simpleName
     private val onClickListener = clickListen
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
