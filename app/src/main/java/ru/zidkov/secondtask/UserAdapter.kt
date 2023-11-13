@@ -13,12 +13,14 @@ import com.bumptech.glide.Glide
 
 class UserAdapter(
     private val context: Context,
-    users: List<User>,
     clickListen: (User, Int) -> Unit
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     var onClickListener = clickListen
-    private val usersList = users
+    var users: List<User> = listOf<User>()
+        set(value) {
+            field = value
+        }
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -29,7 +31,7 @@ class UserAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val user: User = usersList.get(position)
+        val user: User = users.get(position)
         holder.bind(user, context)
 
         // обработка нажатия
@@ -44,7 +46,7 @@ class UserAdapter(
     }
 
     override fun getItemCount(): Int {
-        return usersList.size
+        return users.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
