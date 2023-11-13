@@ -35,10 +35,10 @@ class UserAdapter(
         holder.bind(user, context)
 
         // обработка нажатия
-        holder.itemView.setOnClickListener(View.OnClickListener {
+        holder.itemView.setOnClickListener {
             // вызываем метод слушателя передавая ему данные
             onClickListener(user, position)
-        })
+        }
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
