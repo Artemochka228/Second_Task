@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
+        userAdapter.users = Generator.generateItemsData()
+
         usersList.adapter = userAdapter
     }
 

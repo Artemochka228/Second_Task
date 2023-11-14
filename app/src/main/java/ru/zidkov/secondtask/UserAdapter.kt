@@ -17,7 +17,7 @@ class UserAdapter(
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     var onClickListener = clickListen
-    var users: List<User> = Generator.generateItemsData()
+    var users: List<User> = listOf<User>()
         set(value) {
             field = value
         }
