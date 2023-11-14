@@ -20,6 +20,7 @@ class UserAdapter(
     var users: List<User> = listOf<User>()
         set(value) {
             field = value
+            notifyDataSetChanged()
         }
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
@@ -35,6 +36,7 @@ class UserAdapter(
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
+
         holder.unbind()
     }
 
