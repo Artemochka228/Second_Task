@@ -18,9 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         val usersList: RecyclerView = findViewById(R.id.usersList)
 
-        val users: List<User> = Generator.generateItemsData()
-
-        val userAdapter = UserAdapter(this, users, fun(user: User, position: Int) {
+        val userAdapter = UserAdapter(this, fun(user: User, position: Int) {
             val (name, title, imageSource) = user
             val intent: Intent = SecondActivity.getIntent(context, name, title, imageSource)
             startActivity(intent)
