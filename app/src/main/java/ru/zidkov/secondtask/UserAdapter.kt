@@ -26,19 +26,12 @@ class UserAdapter(
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
         val view: View = inflater.inflate(R.layout.item, parent, false)
-        return UserAdapter.ViewHolder(view)
-
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user: User = users.get(position)
-        holder.bind(user, context)
-
-        // обработка нажатия
-        holder.itemView.setOnClickListener {
-            // вызываем метод слушателя передавая ему данные
-            onClickListener(user, position)
-        }
+        holder.bind(user)
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -49,12 +42,12 @@ class UserAdapter(
         return users.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var title: TextView
         private lateinit var image: ImageView
         private lateinit var name: TextView
 
-        fun bind(user: User, context: Context) {
+        fun bind(user: User) {
             title = itemView.findViewById(R.id.title)
             image = itemView.findViewById(R.id.avatar)
             name = itemView.findViewById(R.id.name)
@@ -65,6 +58,12 @@ class UserAdapter(
                 .into(image)
             title.setText(user.title)
             name.setText(user.name)
+
+            // обработка нажатия
+            itemView.setOnClickListener {
+                // вызываем метод слушателя передавая ему данные
+                onClickListener(user, position)
+            }
         }
 
         fun unbind() {
