@@ -70,7 +70,7 @@ class UserAdapter(
 
         fun unbind() {
             itemView.setOnClickListener(null)
-            Glide.
+            Glide
                 .with(context)
                 .clear(image)
         }
