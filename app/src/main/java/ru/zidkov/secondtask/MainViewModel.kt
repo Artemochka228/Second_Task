@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
     private val stateLiveMutable: MutableLiveData<MainState> = MutableLiveData<MainState>()
-    val stateLive: LiveData<MainState> = stateLiveMutable
+    val stateLive: LiveData<MainState> get() = stateLiveMutable
 
     fun send(event: MainEvent) {
         when(event) {
