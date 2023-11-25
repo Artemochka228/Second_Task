@@ -26,8 +26,9 @@ class MainActivity : AppCompatActivity() {
             val intent: Intent = SecondActivity.getIntent(this, name, title, imageSource)
             startActivity(intent)
         })
-
-        userAdapter.users = vm.stateLive.value?.userList!!
+        vm.stateLive.observe(this) { list ->
+            userAdapter.users = list.userList
+        }
 
         usersList.adapter = userAdapter
     }
