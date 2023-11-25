@@ -36,7 +36,6 @@ class UserAdapter(
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
-
         holder.unbind()
     }
 
