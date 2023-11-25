@@ -13,10 +13,9 @@ import com.bumptech.glide.Glide
 
 class UserAdapter(
     private val context: Context,
-    clickListen: (User, Int) -> Unit
+    val viewModel: MainViewModel
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
-    var onClickListener = clickListen
     var users: List<User> = listOf<User>()
         set(value) {
             field = value
@@ -63,7 +62,7 @@ class UserAdapter(
             // обработка нажатия
             itemView.setOnClickListener {
                 // вызываем метод слушателя передавая ему данные
-                onClickListener(user, position)
+                viewModel.send(MainViewModel.MainEvent.SecondActEvent(user))
             }
         }
 

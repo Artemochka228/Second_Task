@@ -5,13 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
+    sealed class MainEvent {
+        object LoadEvent: MainEvent()
+        data class SecondActEvent(val user: User): MainEvent()
+    }
+
+    val mainActEventLiveData = SingleLiveEvent<MainEvent>()
+
     private val stateLiveMutable: MutableLiveData<MainState> = MutableLiveData<MainState>()
     val stateLive: LiveData<MainState> get() = stateLiveMutable
 
+
     fun send(event: MainEvent) {
         when(event) {
-            is LoadEvent -> load()
-            else -> TODO()
+            is MainEvent.LoadEvent -> load()
+            is MainEvent.SecondActEvent -> mainActEventLiveData.setValue(event)
+            else -> {}
         }
     }
 

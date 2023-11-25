@@ -17,17 +17,25 @@ class MainActivity : AppCompatActivity() {
 
         vm = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        vm.send(LoadEvent())
+        vm.send(MainViewModel.MainEvent.LoadEvent)
 
         val usersList: RecyclerView = findViewById(R.id.usersList)
 
-        val userAdapter = UserAdapter(this, fun(user: User, position: Int) {
-            val (name, title, imageSource) = user
-            val intent: Intent = SecondActivity.getIntent(this, name, title, imageSource)
-            startActivity(intent)
-        })
+        val userAdapter = UserAdapter(this, vm)
+
         vm.stateLive.observe(this) { list ->
             userAdapter.users = list.userList
+        }
+
+        vm.mainActEventLiveData.observe(this) { event ->
+            when(event) {
+                is MainViewModel.MainEvent.SecondActEvent -> {
+                    val (name, title, imageSource) = event.user
+                    val intent: Intent = SecondActivity.getIntent(this, name, title, imageSource)
+                    startActivity(intent)
+                }
+                else -> {}
+            }
         }
 
         usersList.adapter = userAdapter
