@@ -35,8 +35,8 @@ class MainViewModel : ViewModel() {
     }
 
     private fun load() {
+        val list: MutableList<User> = mutableListOf()
         if (stateLiveMutable.value == null) {
-            val list: MutableList<User> = mutableListOf()
             CoroutineScope(Dispatchers.IO).launch {
                 for (i in 1..100) {
                     val character = characterApi.getCharacterById(i)
