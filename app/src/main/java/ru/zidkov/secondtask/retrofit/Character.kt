@@ -1,5 +1,7 @@
 package ru.zidkov.secondtask.retrofit
 
+import com.google.gson.annotations.SerializedName
+
 data class Character(
     val id: Int,
     val name: String,
@@ -23,4 +25,8 @@ data class Origin(
 data class Location(
     val name: String,
     val url: String
+)
+
+data class ListCharacters(
+    @SerializedName("results") val characters: List<Character>
 )

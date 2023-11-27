@@ -3,7 +3,7 @@ package ru.zidkov.secondtask
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -37,15 +37,16 @@ class MainViewModel : ViewModel() {
     private fun load() {
         val list: MutableList<User> = mutableListOf()
         if (stateLiveMutable.value == null) {
-            CoroutineScope(Dispatchers.IO).launch {
-                for (i in 1..100) {
-                    val character = characterApi.getCharacterById(i)
-                    list.add(User(
-                        character.name,
-                        character.species,
-                        character.image
-                        )
-                    )
+            viewModelScope.launch(Dispatchers.IO) {
+                for (j in 1..41) {
+                    val character = characterApi.getAllCharacters(j)
+                    for (i in 0..19) {
+                        list.add(User(
+                            character.characters[i].name,
+                            character.characters[i].species,
+                            character.characters[i].image
+                        ))
+                    }
                 }
                 stateLiveMutable.postValue(MainState(list))
             }
