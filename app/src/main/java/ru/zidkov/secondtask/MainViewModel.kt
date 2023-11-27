@@ -15,9 +15,10 @@ class MainViewModel : ViewModel() {
         .baseUrl("https://rickandmortyapi.com/api/")
         .addConverterFactory(GsonConverterFactory.create()).build()
     private val characterApi = retrofit.create(CharacterApi::class.java)
+
     sealed class MainEvent {
-        data object LoadEvent: MainEvent()
-        data class SecondActEvent(val user: User): MainEvent()
+        data object LoadEvent : MainEvent()
+        data class SecondActEvent(val user: User) : MainEvent()
     }
 
     val mainActEventLiveData = SingleLiveEvent<MainEvent>()
@@ -27,7 +28,7 @@ class MainViewModel : ViewModel() {
 
 
     fun send(event: MainEvent) {
-        when(event) {
+        when (event) {
             is MainEvent.LoadEvent -> load()
             is MainEvent.SecondActEvent -> mainActEventLiveData.setValue(event)
             else -> {}
@@ -38,15 +39,15 @@ class MainViewModel : ViewModel() {
         val list: MutableList<User> = mutableListOf()
         if (stateLiveMutable.value == null) {
             viewModelScope.launch(Dispatchers.IO) {
-                for (j in 1..41) {
+                for (j in 1..42) {
                     val character = characterApi.getAllCharacters(j)
-                    for (i in 0..19) {
-                        list.add(User(
-                            character.characters[i].name,
-                            character.characters[i].species,
-                            character.characters[i].image
-                        ))
-                    }
+                    list.addAll(character.characters.map { char ->
+                        User(
+                            char.name,
+                            char.species,
+                            char.image
+                        )
+                    })
                 }
                 stateLiveMutable.postValue(MainState(list))
             }
