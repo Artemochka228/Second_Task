@@ -39,7 +39,7 @@ class MainViewModel : ViewModel() {
         val list = mutableListOf<User>()
         viewModelScope.launch(Dispatchers.IO) {
             val characters: List<Item> = db.getDao().getAllItems()
-            list.addAll(characters.map{it ->
+            list.addAll(characters.map{
                 User(
                     it.name,
                     it.species,
@@ -52,6 +52,8 @@ class MainViewModel : ViewModel() {
 
     private fun load(db: MainDb) {
         viewModelScope.launch(Dispatchers.IO) {
+            db.getDao().deleteAllItems()
+            db.getDao().resetPrimaryKey()
             if (db.getDao().getAllItems().isEmpty()){
                 for (j in 1..42) {
                     val character = characterApi.getAllCharacters(j)
@@ -65,7 +67,8 @@ class MainViewModel : ViewModel() {
                     }
                 }
             }
+            queryToDb(db)
         }
-        queryToDb(db)
+
     }
 }

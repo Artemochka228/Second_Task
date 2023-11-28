@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         pref = getSharedPreferences("second_task", MODE_PRIVATE)
 
         val editor: SharedPreferences.Editor = pref.edit()
-        editor.putLong(refresh_key, date)
 
         db = MainDb.getDb(this)
 
