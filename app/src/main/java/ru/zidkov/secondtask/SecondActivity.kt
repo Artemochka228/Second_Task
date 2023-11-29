@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
+import com.bumptech.glide.Glide
 
 class SecondActivity : AppCompatActivity() {
     companion object {
@@ -19,7 +19,7 @@ class SecondActivity : AppCompatActivity() {
             context: Context,
             name: String,
             title: String,
-            @DrawableRes imageSource: Int
+            imageSource: String
         ): Intent {
             return Intent(context, SecondActivity::class.java).apply {
                 putExtra(Name, name)
@@ -28,15 +28,17 @@ class SecondActivity : AppCompatActivity() {
             }
         }
     }
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
         val arguments: Bundle? = intent.extras
         val name: String? = arguments?.getString(Name)
         val title: String? = arguments?.getString(Title)
-        val imageSource: Int? = arguments?.getInt(ImageSrc)
+        val imageSource: String? = arguments?.getString(ImageSrc)
 
         val toolBar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolBar.title = title
@@ -48,9 +50,10 @@ class SecondActivity : AppCompatActivity() {
         titleView.text = title
 
         val imageView: ImageView = findViewById(R.id.image)
-        if (imageSource != null) {
-            imageView.setImageResource(imageSource)
-        }
+        Glide
+            .with(this)
+            .load(imageSource)
+            .into(imageView)
 
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

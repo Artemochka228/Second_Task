@@ -1,34 +1,76 @@
 package ru.zidkov.secondtask
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class UserAdapter(
     private val context: Context,
-    private val users: List<User>,
-) : ArrayAdapter<User>(context, R.layout.item, users) {
+    val viewModel: MainViewModel
+) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+
+    var users: List<User> = listOf<User>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     // LayoutInflater - объект, позволяющий пропарсить файл с xml разметкой
-    val inflater: LayoutInflater = LayoutInflater.from(context)
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val (Name, Title, ImageSource) = users[position]
-        // inflate - метод, возвращающий объект View, в котором содержится иерархия View из файла разметки R.layout.item
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
         val view: View = inflater.inflate(R.layout.item, parent, false)
-        // view.findViewById(R.id.name) - ищет элемент с id name в рамках view
-        val name = view.findViewById<TextView>(R.id.name)
-        name.text = Name
-        // view.findViewById(R.id.title) - ищет элемент с id title в рамках view
-        val title = view.findViewById<TextView>(R.id.title)
-        title.text = Title
-        // view.findViewById(R.id.avatar) - ищет элемент с id avatar в рамках view
-        val image = view.findViewById<ImageView>(R.id.avatar)
-        image.setImageResource(ImageSource)
+        return ViewHolder(view)
+    }
 
-        return view
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val user: User = users.get(position)
+        holder.bind(user)
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.unbind()
+    }
+
+    override fun getItemCount(): Int {
+        return users.size
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private lateinit var title: TextView
+        private lateinit var image: ImageView
+        private lateinit var name: TextView
+
+        fun bind(user: User) {
+            title = itemView.findViewById(R.id.title)
+            image = itemView.findViewById(R.id.avatar)
+            name = itemView.findViewById(R.id.name)
+
+            Glide
+                .with(context)
+                .load(user.imageSource)
+                .into(image)
+            title.setText(user.title)
+            name.setText(user.name)
+
+            // обработка нажатия
+            itemView.setOnClickListener {
+                // вызываем метод слушателя передавая ему данные
+                viewModel.send(MainViewModel.MainEvent.SecondActEvent(user))
+            }
+        }
+
+        fun unbind() {
+            itemView.setOnClickListener(null)
+            Glide
+                .with(context)
+                .clear(image)
+        }
     }
 }
